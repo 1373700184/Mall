@@ -8,13 +8,12 @@ namespace Mall.DAL
 {
     public class SQLExecute
     {
-        DataBase zJDAL = new DataBase();
+        DataBase dataBase = new DataBase();
         public static int Count<T>(T t)
         {
             Type type = typeof(T);           
             SQLBasis sqlBasis = new SQLBasis("");
             sqlBasis.And("", "");
-
             return 1;
         }
         public void EG()
@@ -49,7 +48,7 @@ namespace Mall.DAL
 
             sqlwhere = sqlwhere + sql;
 
-            return zJDAL.Database.SqlQuery<T>(sqlwhere).ToList();
+            return dataBase.Database.SqlQuery<T>(sqlwhere).ToList();
         }
 
         /// <summary>
@@ -68,7 +67,7 @@ namespace Mall.DAL
 
             sqlwhere = sqlwhere + sql;
 
-            return zJDAL.Database.SqlQuery<T>(sqlwhere).FirstOrDefault();
+            return dataBase.Database.SqlQuery<T>(sqlwhere).FirstOrDefault();
         }
 
         public T OneModel<T>(SQLBasis sqlBasis)
@@ -81,7 +80,7 @@ namespace Mall.DAL
 
             sqlwhere = sqlwhere + sql;
 
-            return zJDAL.Database.SqlQuery<T>(sqlwhere).FirstOrDefault();
+            return dataBase.Database.SqlQuery<T>(sqlwhere).FirstOrDefault();
         }
         /// <summary>
         /// 总数

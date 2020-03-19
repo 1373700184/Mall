@@ -4,12 +4,13 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="MallModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="MallModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <!--生成过程中发现错误:
 警告 6002: 表/视图“Mall.dbo.Users”未定义主键。已推断出该键，并将定义创建为只读的表/视图。-->
         <EntityType Name="Users">
           <Key>
             <PropertyRef Name="PKID" />
+            
             <PropertyRef Name="UserNo" />
             <PropertyRef Name="UserName" />
             <PropertyRef Name="RealName" />
@@ -20,10 +21,10 @@
             <PropertyRef Name="Out" />
             <PropertyRef Name="DateCreate" />
             <PropertyRef Name="DateUpdate" />
-            <PropertyRef Name="BS" />
+            <PropertyRef Name="Remark" />
           </Key>
           <Property Name="PKID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="OutPKID" Type="int" />
+          <Property Name="OutPKID" Type="int" Nullable="false" />
           <Property Name="UserNo" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="UserName" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="RealName" Type="nvarchar" MaxLength="50" Nullable="false" />
@@ -36,7 +37,7 @@
           <Property Name="DateCreate" Type="datetime" Nullable="false" />
           <Property Name="DateUpdate" Type="datetime" Nullable="false" />
           <Property Name="DateDelete" Type="datetime" />
-          <Property Name="BS" Type="int" Nullable="false" />
+          <Property Name="Remark" Type="int" Nullable="false" />
         </EntityType>
         <EntityContainer Name="MallModelStoreContainer">
           <EntitySet Name="Users" EntityType="Self.Users" store:Type="Tables" store:Schema="dbo">
@@ -55,12 +56,11 @@
     [Users].[DateCreate] AS [DateCreate], 
     [Users].[DateUpdate] AS [DateUpdate], 
     [Users].[DateDelete] AS [DateDelete], 
-    [Users].[BS] AS [BS]
+    [Users].[Remark] AS [Remark]
     FROM [dbo].[Users] AS [Users]</DefiningQuery>
           </EntitySet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="MallModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -78,9 +78,10 @@
             <PropertyRef Name="DateCreate" />
             <PropertyRef Name="DateUpdate" />
             <PropertyRef Name="BS" />
+            <PropertyRef Name="Remark" />
           </Key>
           <Property Name="PKID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="OutPKID" Type="Int32" />
+          <Property Name="OutPKID" Type="Int32" Nullable="false" />
           <Property Name="UserNo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="UserName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="RealName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
@@ -94,6 +95,7 @@
           <Property Name="DateUpdate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="DateDelete" Type="DateTime" Precision="3" />
           <Property Name="BS" Type="Int32" Nullable="false" />
+          <Property Name="Remark" Type="Int32" Nullable="false" />
         </EntityType>
         <EntityContainer Name="MallEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Users" EntityType="Self.Users" />
@@ -107,6 +109,7 @@
           <EntitySetMapping Name="Users">
             <EntityTypeMapping TypeName="MallModel.Users">
               <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="Remark" ColumnName="Remark" />
                 <ScalarProperty Name="PKID" ColumnName="PKID" />
                 <ScalarProperty Name="OutPKID" ColumnName="OutPKID" />
                 <ScalarProperty Name="UserNo" ColumnName="UserNo" />
@@ -121,7 +124,6 @@
                 <ScalarProperty Name="DateCreate" ColumnName="DateCreate" />
                 <ScalarProperty Name="DateUpdate" ColumnName="DateUpdate" />
                 <ScalarProperty Name="DateDelete" ColumnName="DateDelete" />
-                <ScalarProperty Name="BS" ColumnName="BS" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

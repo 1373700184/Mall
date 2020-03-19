@@ -15,7 +15,7 @@ namespace Mall.Models
     public partial class Users
     {
         public int PKID { get; set; }
-        public Nullable<int> OutPKID { get; set; }
+        public int OutPKID { get; set; }
         public string UserNo { get; set; }
         public string UserName { get; set; }
         public string RealName { get; set; }
@@ -29,5 +29,6 @@ namespace Mall.Models
         public System.DateTime DateUpdate { get; set; }
         public Nullable<System.DateTime> DateDelete { get; set; }
         public int BS { get; set; }
+        public int Remark { get; set; }
     }
 }
