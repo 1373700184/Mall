@@ -6,10 +6,14 @@ using System.Web.Mvc;
 
 namespace Mall.Controllers
 {
-    public class HomeController : Controller
+    public class HomeController : ControllerBase
     {
         public ActionResult Index()
         {
+            if (SessionUser != null)
+            {
+                ViewBag.UserName = SessionUser.UserName;
+            }
             return View();
         }
 

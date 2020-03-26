@@ -11,9 +11,12 @@ namespace Mall.Models
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations.Schema;
+
     
     public partial class Users
     {
+        [System.ComponentModel.DataAnnotations.Key]
         public int PKID { get; set; }
         public int OutPKID { get; set; }
         public string UserNo { get; set; }
@@ -28,7 +31,6 @@ namespace Mall.Models
         public System.DateTime DateCreate { get; set; }
         public System.DateTime DateUpdate { get; set; }
         public Nullable<System.DateTime> DateDelete { get; set; }
-        public int BS { get; set; }
         public int Remark { get; set; }
     }
 }

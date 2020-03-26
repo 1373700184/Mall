@@ -140,11 +140,13 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\ControllerBase.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\LoginPost.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -304,7 +306,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Models\" />
+    <Folder Include="Views\ControllerBase\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
@@ -318,6 +320,20 @@
     <None Include="packages.config" />
     <Content Include="Scripts\jquery-3.3.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.3.1.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Mall.DAL\Mall.DAL.csproj">
+      <Project>{A2CDF30C-0CC4-4EC6-894D-0E7743B6696C}</Project>
+      <Name>Mall.DAL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Mall.Help\Mall.Help.csproj">
+      <Project>{008E1E36-EAF1-41B0-84DD-349F9C09FA51}</Project>
+      <Name>Mall.Help</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Mall.Models\Mall.Models.csproj">
+      <Project>{AEEF8E52-05FD-4DCE-AF2F-E0755988EB75}</Project>
+      <Name>Mall.Models</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
