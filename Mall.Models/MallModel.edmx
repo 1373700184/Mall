@@ -5,23 +5,21 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="MallModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
-        <!--生成过程中发现错误:
-警告 6002: 表/视图“Mall.dbo.Users”未定义主键。已推断出该键，并将定义创建为只读的表/视图。-->
+        <EntityType Name="Footprint">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserID" Type="int" Nullable="false" />
+          <Property Name="Title" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Url" Type="nvarchar" MaxLength="500" Nullable="false" />
+          <Property Name="DateCreate" Type="datetime" Nullable="false" />
+          <Property Name="DataDelete" Type="datetime" />
+          <Property Name="Status" Type="int" Nullable="false" />
+        </EntityType>
         <EntityType Name="Users">
           <Key>
             <PropertyRef Name="PKID" />
-            
-            <PropertyRef Name="UserNo" />
-            <PropertyRef Name="UserName" />
-            <PropertyRef Name="RealName" />
-            <PropertyRef Name="Password" />
-            <PropertyRef Name="Mobile" />
-            <PropertyRef Name="Sex" />
-            <PropertyRef Name="Status" />
-            <PropertyRef Name="Out" />
-            <PropertyRef Name="DateCreate" />
-            <PropertyRef Name="DateUpdate" />
-            <PropertyRef Name="Remark" />
           </Key>
           <Property Name="PKID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="OutPKID" Type="int" Nullable="false" />
@@ -40,25 +38,8 @@
           <Property Name="Remark" Type="int" Nullable="false" />
         </EntityType>
         <EntityContainer Name="MallModelStoreContainer">
-          <EntitySet Name="Users" EntityType="Self.Users" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [Users].[PKID] AS [PKID], 
-    [Users].[OutPKID] AS [OutPKID], 
-    [Users].[UserNo] AS [UserNo], 
-    [Users].[UserName] AS [UserName], 
-    [Users].[RealName] AS [RealName], 
-    [Users].[Password] AS [Password], 
-    [Users].[Mobile] AS [Mobile], 
-    [Users].[Sex] AS [Sex], 
-    [Users].[RoleIDs] AS [RoleIDs], 
-    [Users].[Status] AS [Status], 
-    [Users].[Out] AS [Out], 
-    [Users].[DateCreate] AS [DateCreate], 
-    [Users].[DateUpdate] AS [DateUpdate], 
-    [Users].[DateDelete] AS [DateDelete], 
-    [Users].[Remark] AS [Remark]
-    FROM [dbo].[Users] AS [Users]</DefiningQuery>
-          </EntitySet>
+          <EntitySet Name="Footprint" EntityType="Self.Footprint" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
         </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
@@ -77,7 +58,6 @@
             <PropertyRef Name="Out" />
             <PropertyRef Name="DateCreate" />
             <PropertyRef Name="DateUpdate" />
-            <PropertyRef Name="BS" />
             <PropertyRef Name="Remark" />
           </Key>
           <Property Name="PKID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
@@ -94,12 +74,24 @@
           <Property Name="DateCreate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="DateUpdate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="DateDelete" Type="DateTime" Precision="3" />
-          <Property Name="BS" Type="Int32" Nullable="false" />
           <Property Name="Remark" Type="Int32" Nullable="false" />
         </EntityType>
         <EntityContainer Name="MallEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Users" EntityType="Self.Users" />
+          <EntitySet Name="Footprint" EntityType="MallModel.Footprint" />
         </EntityContainer>
+        <EntityType Name="Footprint">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserID" Type="Int32" Nullable="false" />
+          <Property Name="Title" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Url" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="DateCreate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="DataDelete" Type="DateTime" Precision="3" />
+          <Property Name="Status" Type="Int32" Nullable="false" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -124,6 +116,19 @@
                 <ScalarProperty Name="DateCreate" ColumnName="DateCreate" />
                 <ScalarProperty Name="DateUpdate" ColumnName="DateUpdate" />
                 <ScalarProperty Name="DateDelete" ColumnName="DateDelete" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Footprint">
+            <EntityTypeMapping TypeName="MallModel.Footprint">
+              <MappingFragment StoreEntitySet="Footprint">
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="DataDelete" ColumnName="DataDelete" />
+                <ScalarProperty Name="DateCreate" ColumnName="DateCreate" />
+                <ScalarProperty Name="Url" ColumnName="Url" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

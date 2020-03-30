@@ -10,7 +10,7 @@ using System.Web.Security;
 
 namespace Mall.Controllers
 {
-    public class UsersController : Controller
+    public class AuthController : Controller
     {
         // GET: Users
         public ActionResult Index()
@@ -57,6 +57,12 @@ namespace Mall.Controllers
             }
             return RedirectToAction("Login",model);
         }
+
+        /// <summary>
+        /// 登录验证
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
         public string LogTo(LoginPost model)
         {
             string S = "";
@@ -76,6 +82,17 @@ namespace Mall.Controllers
                
 
             return S;
+        }
+
+
+        /// <summary>
+        /// 退出登录
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult Logout()
+        {
+            FormsAuthentication.SignOut();
+            return RedirectToAction("Login");
         }
     }
 }

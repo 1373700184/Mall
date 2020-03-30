@@ -15,7 +15,9 @@ namespace Mall.DAL
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Users>().ToTable("Users");
+            modelBuilder.Entity<Footprint>().ToTable("Footprint");
         }
         public DbSet<Users> UsersDAL { get; set; }
+        public DbSet<Footprint> FootprintDAL { get; set; }
     }
 }

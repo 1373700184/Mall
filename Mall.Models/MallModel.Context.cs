@@ -26,5 +26,6 @@ namespace Mall.Models
         }
     
         public virtual DbSet<Users> Users { get; set; }
+        public virtual DbSet<Footprint> Footprint { get; set; }
     }
 }

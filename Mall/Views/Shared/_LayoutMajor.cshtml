@@ -28,25 +28,34 @@
                 <ul class="navbar-right navbar-nav nav">
                     <li>@Html.ActionLink("购物车", "Index", "Home")</li>
                     @*<li><a href="#"><i class="fa fa-cart-arrow-down" aria-hidden="true"></i>12123123</a></li>*@
-                  
-                    <li class="dropdown">
-                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">@(ViewBag.UserName != null ? ViewBag.UserName :"请登录")<b class="caret"></b></a>
-                        <ul class="dropdown-menu bottom-up pull-right">
 
-                            @if (ViewBag.UserName == null)
-                            {
-                                <li><a href="/Users/Login">登录</a></li>
-                            }
-                            else
-                            {
+
+                    <input type="hidden" id="Session" value="@ViewBag.RealName">
+
+
+
+                    @if (ViewBag.RealName == null)
+                    {
+                        <li>@Html.ActionLink("请登录", "Login", "Auth")</li>
+                        
+
+                    }
+                    else
+                    {
+                        <li class="dropdown">
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="#">@(ViewBag.RealName)<b class="caret"></b></a>
+                            <ul class="dropdown-menu bottom-up pull-right">
                                 <li><a href="#">个人中心</a></li>
                                 <li><a href="#">我的订阅</a></li>
                                 <li><a href="#">我的足迹</a></li>
                                 <li class="divider"></li>
-                                <li><a href="#">退出</a></li>
-                            }
-                        </ul>
-                    </li>
+                                <li><a href="/Users/Logout">退出</a></li>
+                            </ul>
+                        </li>
+                    }
+
+
+
                     <li class="dropdown">
                         <a class="dropdown-toggle" data-toggle="dropdown" href="#">联系客服<b class="caret"></b></a>
                         <ul class="dropdown-menu bottom-up pull-right">
@@ -55,6 +64,16 @@
                             <li><a href="#">商城客服</a></li>
                         </ul>
                     </li>
+                    @if (ViewBag.RealName != null)
+                    {
+                        <li class="dropdown">
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="#">我的足迹<b class="caret"></b></a>
+                            <ul id="footprint" class="dropdown-menu bottom-up pull-right">
+                                @*<li class="divider"></li>*@
+
+                            </ul>
+                        </li>
+                    }
                 </ul>
                 
             </div>
@@ -73,3 +92,24 @@
     @RenderSection("scripts", required: false)
 </body>
 </html>
+<script>
+    window.onload = function () {
+        var pageURL = $(location).attr("href");
+        var pageTitle = document.title;
+        if ($("#Session").val() != "") {
+            $.ajax({
+                type: "post",
+                url: "/Home/LogFoot",
+                data: { pageURL: pageURL, pageTitle: pageTitle },
+                success: function (data) {
+                   
+                    for (var i = 0; i < data.length; i++) {
+                        $("#footprint").append('<li><a href="' + data[0].Url + '">' + data[0].Title+'</a></li>');
+                    }
+                    $("#footprint").append('<li class="divider"></li><li><a href="#">更多</a></li>');
+                    
+                }
+            });
+        }
+    } 
+</script>
