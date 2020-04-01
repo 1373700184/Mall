@@ -64,7 +64,7 @@
                             <li><a href="#">商城客服</a></li>
                         </ul>
                     </li>
-                    @if (ViewBag.RealName != null)
+                    @if (ViewBag.RealName != null&& ViewBag.Title!= "历史足迹")
                     {
                         <li class="dropdown">
                             <a class="dropdown-toggle" data-toggle="dropdown" href="#">我的足迹<b class="caret"></b></a>
@@ -94,22 +94,26 @@
 </html>
 <script>
     window.onload = function () {
+        var T=0
         var pageURL = $(location).attr("href");
         var pageTitle = document.title;
-        if ($("#Session").val() != "") {
-            $.ajax({
-                type: "post",
-                url: "/Home/LogFoot",
-                data: { pageURL: pageURL, pageTitle: pageTitle },
-                success: function (data) {
-                   
-                    for (var i = 0; i < data.length; i++) {
-                        $("#footprint").append('<li><a href="' + data[0].Url + '">' + data[0].Title+'</a></li>');
+        if (pageTitle.search("历史足迹")==-1) {
+            if ($("#Session").val() != "") {
+                $.ajax({
+                    type: "post",
+                    url: "/Home/LogFoot",
+                    data: { pageURL: pageURL, pageTitle: pageTitle },
+                    success: function (data) {
+
+                        for (var i = 0; i < data.length; i++) {
+                            $("#footprint").append('<li><a href="' + data[0].Url + '">' + data[0].Title + '</a></li>');
+                        }
+                        $("#footprint").append('<li class="divider"></li><li><a href="/Consumer/FootPrintList">更多</a></li>');
+
                     }
-                    $("#footprint").append('<li class="divider"></li><li><a href="#">更多</a></li>');
-                    
-                }
-            });
+                });
+                T = 1
+            }
         }
     } 
 </script>

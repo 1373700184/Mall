@@ -1,9 +1,28 @@
 ﻿@using Mall.Models;
+@using PagedList.Mvc;
 @{
-    ViewBag.Title = "FootPrintList";
+    ViewBag.Title = "历史足迹";
     Layout = "~/Views/Shared/_LayoutMajor.cshtml";
 }
-@model List<Footprint>
-<h2>FootPrintList</h2>
-
-
+@model PagedList.IPagedList<Footprint>
+<h2>历史足迹</h2>
+<div style="width:70%;margin-left:15%">
+    <table class="tab table">
+        <tr>
+            <th>页面名称</th>
+            <th>时间</th>
+            <th>页面地址</th>
+            <th>操作</th>
+        </tr>
+        @foreach (var fp in Model)
+        {
+            <tr>
+                <td>@fp.Title</td>
+                <td>@fp.DateCreate</td>
+                <td>@fp.Url</td>
+                <td><a href="/Consumer/ClearFoot?Id=@fp.Id">清除</a></td>
+            </tr>
+        }
+    </table>
+    @Html.PagedListPager(Model, page => Url.Action("FootPrintList", new { page }), new PagedListRenderOptions() { LinkToFirstPageFormat = "首页", LinkToNextPageFormat = "下一页", LinkToPreviousPageFormat = "上一页", LinkToLastPageFormat = "末页", DisplayItemSliceAndTotal = true, ItemSliceAndTotalFormat = "共有{2}个", MaximumPageNumbersToDisplay = 6 })
+</div>
